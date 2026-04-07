@@ -30,11 +30,11 @@ router.post('/', authMiddleware, async (req: AuthRequest, res: Response): Promis
     const guideId = result.insertId;
 
     if (attractions && Array.isArray(attractions) && attractions.length > 0) {
-      const values = attractions.map((a: { attraction_id: number; sort_order: number; comment?: string }) => [
+      const values = attractions.map((a: { attraction_id: number; sort_order: number; photo_url?: string; comment?: string }) => [
         guideId,
         a.attraction_id,
         a.sort_order || 0,
-        null,
+        a.photo_url || null,
         a.comment || null,
       ]);
 

@@ -35,7 +35,7 @@ const upload = multer({
 });
 
 // POST /api/upload
-router.post('/', authMiddleware, upload.single('file'), (req: AuthRequest, res: Response): void => {
+router.post('/', authMiddleware, upload.single('photo'), (req: AuthRequest, res: Response): void => {
   try {
     if (!req.file) {
       res.status(400).json({ message: 'No file uploaded' });
