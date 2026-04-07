@@ -225,8 +225,10 @@ router.get('/:id/pdf', async (req: AuthRequest, res: Response): Promise<void> =>
 
       // Include photo if available
       if (attraction.photo_url) {
-        const photoPath = path.join(__dirname, '../../uploads', path.basename(attraction.photo_url));
-        if (fs.existsSync(photoPath)) {
+        const filename = path.basename(attraction.photo_url);
+        const photoPath = path.resolve(path.join(__dirname, '../../uploads', filename));
+        const uploadsDir = path.resolve(path.join(__dirname, '../../uploads'));
+        if (photoPath.startsWith(uploadsDir) && fs.existsSync(photoPath)) {
           try {
             doc.moveDown(0.5);
             doc.image(photoPath, { width: 200 });
